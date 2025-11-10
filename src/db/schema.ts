@@ -1,7 +1,7 @@
 import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
-
+import { nanoid } from "nanoid";
 export const user = pgTable("user", {
-  id: text("id").primaryKey(),
+  id: text("id").primaryKey().default(nanoid()),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
@@ -57,6 +57,19 @@ export const verification = pgTable("verification", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()
+    .$onUpdate(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
+
+export const agents = pgTable("agent", {
+  id: text("id").primaryKey().default(nanoid()),
+  name: text("name").notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  instructions: text("instructions").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at")
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
