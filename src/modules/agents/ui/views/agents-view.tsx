@@ -2,6 +2,8 @@
 
 import { ErrorState } from "@/components/error-state"
 import { LoadingState } from "@/components/loading-state"
+import { ResponsiveDialog } from "@/components/responsive-dialog"
+import { Button } from "@/components/ui/button"
 import { useTRPC } from "@/trpc/client"
 
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query"
@@ -9,9 +11,19 @@ import { useQuery, useSuspenseQuery } from "@tanstack/react-query"
 export const AgentsView = () => {
     const trpc = useTRPC()
     const { data } = useSuspenseQuery(trpc.agents.getMany.queryOptions())
-    return (    
-        <div className="p-4 flex flex-col gap-4">
-          {JSON.stringify(data, null, 2)}
+    return (
+        <div>
+            <ResponsiveDialog 
+            title="Agents" 
+            description="List of agents" 
+            open={false}
+            onOpenChange={() => { }}
+            >
+                <Button>
+                    some action
+                </Button>
+            </ResponsiveDialog>
+            {JSON.stringify(data, null, 2)}
         </div>
     )
 }
@@ -24,6 +36,6 @@ export const AgentsViewLoading = () => {
 
 export const AgentsViewError = () => {
     return (
-       <ErrorState title="Error loading agents" description="Please try again." />
+        <ErrorState title="Error loading agents" description="Please try again." />
     )
 }
