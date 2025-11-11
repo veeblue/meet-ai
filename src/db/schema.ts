@@ -62,7 +62,7 @@ export const verification = pgTable("verification", {
 });
 
 export const agents = pgTable("agent", {
-  id: text("id").primaryKey().default(nanoid()),
+  id: text("id").primaryKey().$defaultFn(() => nanoid()), 
   name: text("name").notNull(),
   userId: text("user_id")
     .notNull()
