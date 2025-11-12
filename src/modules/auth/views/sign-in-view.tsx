@@ -125,18 +125,18 @@ export const SignInView = () => {
                                         </AlertDescription>
                                     </Alert>
                                 )}
-                                <Button type="submit" className="w-full" disabled={pending}>
+                                <Button type="submit" className="w-full cursor-pointer" disabled={pending}>
                                     Sign In
                                 </Button>
                                 <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                                     <span className="bg-card text-muted-foreground relative z-10 px-2" >Or continue with</span>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <Button variant="outline" className="w-full" disabled={pending} onClick={() => onSocial("google")}>
+                                    <Button variant="outline" className="w-full cursor-pointer" disabled={pending} onClick={() => onSocial("google")}>
                                         <FaGoogle className="h-4 w-4" />
                                         Google
                                     </Button>
-                                    <Button variant="outline" className="w-full" disabled={pending} onClick={() => onSocial("github")}>
+                                    <Button variant="outline" className="w-full cursor-pointer" disabled={pending} onClick={() => onSocial("github")}>
                                         <FaGithub className="h-4 w-4" />
                                         GitHub
                                     </Button>
@@ -158,13 +158,13 @@ export const SignInView = () => {
                 </CardContent>
             </Card>
 
-            <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *[a]:underline-offset-4">
+            <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *[a]:underline-offset-4 ">
                 By clicking continue, you agree to our {" "}
-                <Link href="/terms" className="underline underline-offset-4">
+                <Link href="/terms" className="underline underline-offset-4 cursor-pointer" >
                 Terms of Service
                 </Link>{" "}
                 and {" "}
-                <Link href="/privacy" className="underline underline-offset-4">
+                <Link href="/privacy" className="underline underline-offset-4 cursor-pointer">
                 Privacy Policy
                 </Link>
             </div>
