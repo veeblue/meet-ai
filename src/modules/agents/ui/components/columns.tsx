@@ -5,6 +5,7 @@ import { AgentGetOne } from "../../types"
 import { GeneratedAvatar } from "@/components/generated-avatar"
 import { CornerDownRightIcon, CornerRightDownIcon, VideoIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { MeetingsTag } from "./meetngs-tag"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -46,12 +47,7 @@ export const columns: ColumnDef<AgentGetOne>[] = [
         accessorKey: "meetingCount",
         header: "Meeting Count",
         cell: ({ row }) => (
-            <Badge
-                variant="outline"
-                className="flex items-center gap-x-2 [&>svg]:size-4">
-                <VideoIcon className="text-blue-700" />
-                {row.original.meetingCount} {row.original.meetingCount === 1 ? "Meeting" : "Meetings"}
-            </Badge>
+            <MeetingsTag meetingCount={row.original.meetingCount} />
         ),
     }
 
