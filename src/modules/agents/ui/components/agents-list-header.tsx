@@ -6,6 +6,7 @@ import { useAgentsFilters } from "../../hooks/use-agents-filters"
 import { AgentsSearchFilter } from "./agents-search-filter"
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "@/constant"
 import { PlusIcon, XCircleIcon } from "lucide-react"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 export const AgentsListHeader = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -25,18 +26,21 @@ export const AgentsListHeader = () => {
                     <h5 className="text-2xl font-bold">My Agents</h5>
                     <Button onClick={() => setIsDialogOpen(true)}><PlusIcon /> New Agent</Button>
                 </div>
-                <div className="flex items-center gap-x-2 p-1">
-                    <AgentsSearchFilter />
-                    {isAnyFilterModified && (
-                        <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={onClearFilters}>
-                            <XCircleIcon />
-                            Clear
-                        </Button>
-                    )}
-                </div>
+                <ScrollArea>
+                    <div className="flex items-center gap-x-2 p-1">
+                        <AgentsSearchFilter />
+                        {isAnyFilterModified && (
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={onClearFilters}>
+                                <XCircleIcon />
+                                Clear
+                            </Button>
+                        )}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                </ScrollArea>
             </div>
         </>
 

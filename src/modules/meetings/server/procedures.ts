@@ -6,6 +6,7 @@ import { z } from "zod";
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from "@/constant";
 import { TRPCError } from "@trpc/server";
 import { meetingsInsertSchema, meetingsUpdateSchema } from "../schema";
+import { MeetingStatus } from "../types";
 
 
 export const meetingsRouter = createTRPCRouter({
@@ -73,11 +74,13 @@ export const meetingsRouter = createTRPCRouter({
                 .min(MIN_PAGE_SIZE)
                 .max(MAX_PAGE_SIZE)
                 .default(DEFAULT_PAGE_SIZE),
-            search: z.string().nullish()
+            search: z.string().nullish(),
+            agentId: z.string().nullish(),
+            status: z.enum([MeetingStatus.Upcoming, MeetingStatus.Active, MeetingStatus.Completed, MeetingStatus.Processing, MeetingStatus.Cancelled]).nullish(),
         })
         )
         .query(async ({ input, ctx }) => {
-            const { search, page, pageSize } = input;
+            const { search, page, pageSize, agentId, status } = input;
             const data = await db
                 .select({
                     ...getTableColumns(meetings),
@@ -90,6 +93,8 @@ export const meetingsRouter = createTRPCRouter({
                     and(
                         eq(meetings.userId, ctx.session.user.id),
                         search ? like(meetings.name, `%${search}%`) : undefined,
+                        agentId ? eq(meetings.agentId, agentId) : undefined,
+                        status ? eq(meetings.status, status) : undefined,
                     )
                 )
                 .orderBy(desc(meetings.createdAt), desc(meetings.id))
@@ -103,6 +108,8 @@ export const meetingsRouter = createTRPCRouter({
                     and(
                         eq(meetings.userId, ctx.session.user.id),
                         search ? like(meetings.name, `%${search}%`) : undefined,
+                        agentId ? eq(meetings.agentId, agentId) : undefined,
+                        status ? eq(meetings.status, status) : undefined,
                     )
                 );
             const totalPages = Math.ceil(total.count / pageSize);

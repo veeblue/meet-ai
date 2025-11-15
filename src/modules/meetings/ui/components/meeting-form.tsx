@@ -81,7 +81,7 @@ export const MeetingForm = ({
         resolver: zodResolver(meetingsInsertSchema),
         defaultValues: {
             name: initialValues?.name ?? "",
-            instructions: initialValues?.instructions ?? "",
+            // instructions: initialValues?.instructions ?? "",
         }
     })
 
@@ -157,10 +157,10 @@ export const MeetingForm = ({
                                         Create a new agent
                                     </button>
 
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )} />
+                    </FormDescription>
+                    <FormMessage />
+                </FormItem>
+            )} />
                     <div className="flex justify-between gap-x-2">
                         {onCancel &&
                             <Button
