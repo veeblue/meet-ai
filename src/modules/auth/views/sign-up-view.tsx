@@ -190,7 +190,7 @@ export const SignUpView = () => {
                                 </div>
                                 <div className="text-center text-sm text-muted-foreground">
                                     Already have an account? {" "}
-                                    <Link href="/sign-in" className="underline underline-offset-4 ">
+                                    <Link href="/sign-in" className="underline underline-offset-4 text-[#5731d5]">
                                     Sign In
                                     </Link>
                                 </div>

@@ -143,7 +143,7 @@ export const SignInView = () => {
                                 </div>
                                 <div className="text-center text-sm text-muted-foreground">
                                     Don&apos;t have an account? {" "}
-                                    <Link href="/sign-up" className="underline underline-offset-4 ">
+                                    <Link href="/sign-up" className="underline underline-offset-4 text-[#5731d5]">
                                     Sign Up
                                     </Link>
                                 </div>
