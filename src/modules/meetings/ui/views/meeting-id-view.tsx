@@ -36,7 +36,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
     const handleRemoveMeeting = async () => {
         const ok = await confirmRemove()
         if (!ok) return
-        await removeMeeting.mutateAsync({ id: meetingId })
+        await removeMeeting.mutateAsync({ id: meetingId, agentId: data.agentId , name: data.name })
     }
     const removeMeeting = useMutation(
         trpc.meetings.remove.mutationOptions({
