@@ -6,17 +6,22 @@ import { useState } from "react"
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "@/constant"
 import { PlusIcon, XCircleIcon } from "lucide-react"
 import { NewMeetingDialog } from "./new-meeting-dialog"
+import { MeetingsSearchFilter } from "./meetings-search-filter"
+import { useMeetingsFilters } from "../../hooks/use-meetings-filters"
+import { StatusFilter } from "./status-filter"
+import { AgentIdFilter } from "./agent-id-filter"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 export const MeetingsListHeader = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
-    // const [filters, setFilters] = useMeetingsFilters()
-    // const isAnyFilterModified = !!filters.search
-    // const onClearFilters = () => {
-    //     setFilters({
-    //         search: "",
-    //         page: DEFAULT_PAGE,
-    //     })
-    // }
+    const [filters, setFilters] = useMeetingsFilters()
+    const isAnyFilterModified = !!filters.search
+    const onClearFilters = () => {
+        setFilters({
+            search: "",
+            page: DEFAULT_PAGE,
+        })
+    }
     return (
         <>
             <NewMeetingDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
@@ -25,18 +30,24 @@ export const MeetingsListHeader = () => {
                     <h5 className="text-2xl font-bold">My Meetings</h5>
                     <Button onClick={() => setIsDialogOpen(true)}> <PlusIcon /> New Meeting</Button>
                 </div>
-                <div className="flex items-center gap-x-2 p-1">
-                    {/* <MeetingsSearchFilter /> */}
-                    {/* {isAnyFilterModified && (
-                        <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={onClearFilters}>
-                            <XCircleIcon />
-                            Clear
-                        </Button>
-                    )} */}
-                </div>
+                <ScrollArea>
+                    <div className="flex items-center gap-x-2 p-1">
+                        <MeetingsSearchFilter />
+                        <StatusFilter />
+                        <AgentIdFilter />
+                        {isAnyFilterModified && (
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={onClearFilters}>
+                                <XCircleIcon />
+                                Clear
+                            </Button>
+                        )}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+
             </div>
         </>
 
