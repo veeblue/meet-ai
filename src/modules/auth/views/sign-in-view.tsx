@@ -1,4 +1,4 @@
- "use client"
+"use client"
 import { Card, CardContent } from "@/components/ui/card"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -119,9 +119,9 @@ export const SignInView = () => {
                                 { !!error && (
                                     <Alert className="bg-destructive/10 border-none">
                                         <OctagonAlertIcon className="h-4 w-4 !text-destructive" />
-                                        <AlertTitle>Invalid credentials</AlertTitle>
+                                        <AlertTitle>登录失败</AlertTitle>
                                         <AlertDescription>
-                                            The email or password you entered is incorrect. Please try again.
+                                            {error}
                                         </AlertDescription>
                                     </Alert>
                                 )}
